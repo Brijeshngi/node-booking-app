@@ -2,19 +2,20 @@ import mongoose from "mongoose";
 
 const schema = mongoose.Schema({
   customer: {
-    type: String,
-    // customer_id
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Customer",
   },
-
-  booked_items: {
-    type: String,
-    // booked items id
+  bill_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Billing",
   },
-  bookings_days: {
+  booked_items: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
+  number_of_days: {
     type: String,
-  },
-  booking_date: {
-    type: Date,
   },
   booked_on_date: {
     type: Date,
@@ -22,7 +23,6 @@ const schema = mongoose.Schema({
   booking_status: {
     type: String,
     enum: ["Pending", "Confirm", "Waiting"],
-    //  pending/confirm
   },
 });
 

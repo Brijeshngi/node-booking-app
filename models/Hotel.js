@@ -40,6 +40,7 @@ const schema = mongoose.Schema({
   },
   reviews: [
     {
+      user_name: mongoose.Schema.Types.ObjectId,
       title: { type: String, required: true },
       description: { type: String, required: true },
       videos: {

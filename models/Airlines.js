@@ -1,52 +1,39 @@
 import mongoose from "mongoose";
 
 const schema = mongoose.Schema({
-  vendor_name: {
+  airlines: {
     type: String,
     required: true,
   },
-  bus_number: {
+  flight_number: {
     type: String,
     required: true,
   },
-
-  bus_type: {
-    type: String,
-    enum: ["AC", "Non-AC"],
-  },
-
   timing: {
     type: Date,
   },
-
   from: {
     type: String,
     required: true,
   },
-
   to: {
     type: String,
     required: true,
   },
-
   fares: {
     type: String,
     required: true,
   },
-
-  bus_status: {
+  flight_status: {
     type: String,
-    enum: ["arrived", "on the way", "departed", "late"],
+    enum: ["A", "OTW", "DPT", "L"],
+    default: "A",
   },
-
   no_of_passengers: {
     type: String,
-    required: true,
   },
-
-  seats: {
+  occupancy: {
     type: String,
-    required: true,
   },
   reviews: [
     {
@@ -67,11 +54,10 @@ const schema = mongoose.Schema({
       },
     },
   ],
-
   createAt: {
     type: Date,
     Date: Date.now(),
   },
 });
 
-export const Bus = mongoose.model("Bus", schema);
+export const Airlines = mongoose.model("Airlines", schema);
