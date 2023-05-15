@@ -20,6 +20,10 @@ const schema = mongoose.Schema({
     type: String,
     required: true,
   },
+  travelling_class: {
+    type: String,
+    required: true,
+  },
   fares: {
     type: String,
     required: true,
@@ -29,10 +33,14 @@ const schema = mongoose.Schema({
     enum: ["A", "OTW", "DPT", "L"],
     default: "A",
   },
-  no_of_passengers: {
+  occupancy: {
+    type: String,
+    required: true,
+  },
+  occupied: {
     type: String,
   },
-  occupancy: {
+  seat_detail: {
     type: String,
   },
   reviews: [

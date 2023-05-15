@@ -9,16 +9,13 @@ const schema = mongoose.Schema({
     type: String,
     required: true,
   },
-
   bus_type: {
     type: String,
     enum: ["AC", "Non-AC"],
   },
-
   timing: {
     type: Date,
   },
-
   from: {
     type: String,
     required: true,
@@ -37,13 +34,17 @@ const schema = mongoose.Schema({
   bus_status: {
     type: String,
     enum: ["arrived", "on the way", "departed", "late"],
+    default: "arrived",
   },
 
-  no_of_passengers: {
+  occupancy: {
     type: String,
     required: true,
   },
-
+  occupied: {
+    type: String,
+    required: true,
+  },
   seats: {
     type: String,
     required: true,
