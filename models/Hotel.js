@@ -17,7 +17,20 @@ const schema = mongoose.Schema({
     type: String,
     required: true,
   },
-  gallery: {},
+  gallery: [
+    {
+      title: { type: String, required: true },
+      description: { type: String, required: true },
+      videos: {
+        public_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      images: {
+        public_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+    },
+  ],
   Amenities: {
     type: String,
     required: true,
@@ -38,6 +51,11 @@ const schema = mongoose.Schema({
     type: String,
     required: true,
   },
+  room_type: {
+    type: String,
+    required: true,
+    enum: ["AC", "Non-AC"],
+  },
   reviews: [
     {
       user_name: mongoose.Schema.Types.ObjectId,
@@ -57,8 +75,6 @@ const schema = mongoose.Schema({
       },
     },
   ],
-
-  // {photos, text}
 
   createAt: {
     type: Date,
