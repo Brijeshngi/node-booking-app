@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const schema = mongoose.Schema({
+const schema = new mongoose.Schema({
   vendor_name: {
     type: String,
     required: true,
@@ -17,12 +17,14 @@ const schema = mongoose.Schema({
     type: Date,
   },
   from: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
     required: true,
   },
 
   to: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
     required: true,
   },
 
@@ -33,8 +35,8 @@ const schema = mongoose.Schema({
 
   bus_status: {
     type: String,
-    enum: ["arrived", "on the way", "departed", "late"],
-    default: "arrived",
+    enum: ["A", "OTW", "D", "L"],
+    default: "A",
   },
 
   occupancy: {

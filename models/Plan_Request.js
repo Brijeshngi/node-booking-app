@@ -1,17 +1,19 @@
 import mongoose from "mongoose";
 import validator from "validator";
 
-const schema = mongoose.Schema({
+const schema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
   from: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
     required: true,
   },
   to: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
     required: true,
   },
   date: {
@@ -26,6 +28,8 @@ const schema = mongoose.Schema({
   contact: {
     type: String,
     required: true,
+    minlength: [10, "required 10 digits"],
+    maxlength: [10, "required 10 digits"],
   },
 });
 

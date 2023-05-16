@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const schema = mongoose.Schema({
+const schema = new mongoose.Schema({
   Hotel_name: {
     type: String,
     required: true,
@@ -14,7 +14,8 @@ const schema = mongoose.Schema({
     required: true,
   },
   city: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
     required: true,
   },
   gallery: [

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const schema = mongoose.Schema({
+const schema = new mongoose.Schema({
   airlines: {
     type: String,
     required: true,
@@ -11,13 +11,16 @@ const schema = mongoose.Schema({
   },
   timing: {
     type: Date,
+    required: true,
   },
   from: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
     required: true,
   },
   to: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "City",
     required: true,
   },
   travelling_class: {

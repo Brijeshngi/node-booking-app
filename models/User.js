@@ -1,10 +1,13 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 
-const schema = mongoose.Schema({
+const schema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "name required"],
+    required: [true, "Name required"],
     maxlength: [50, "Exceeded number of characters"],
   },
   email: {
@@ -14,24 +17,59 @@ const schema = mongoose.Schema({
   },
   contact: {
     type: String,
-    required: [true, "contact required"],
+    minlength: [10, "minimum 10 characters"],
+    maxlength: [10, "maximum 10 characters"],
   },
   password: {
     type: String,
-    required: [true, "password required"],
+    select: false,
+    required: [true, "Password required"],
   },
-  Avatar: {
-    public_id: {
-      type: String,
-    },
-    url: {
-      type: String,
-    },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user",
   },
   createdAt: {
     type: Date,
     Date: Date.now(),
   },
+
+  resetPasswordToken: String,
+  resetPasswordExpire: String,
 });
+
+schema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+schema.methods.getJWTToken = function () {
+  return jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: "15d",
+  });
+};
+
+schema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+// for testing on console that generates resetToken
+
+// console.log("password", crypto.randomBytes(20).toString("hex"));
+
+schema.methods.getResetToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  this.ResetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.ResetPasswordExpire = Date.now() + 15 * 60 * 1000;
+
+  return resetToken;
+};
 
 export const User = mongoose.model("User", schema);
