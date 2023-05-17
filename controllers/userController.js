@@ -2,7 +2,6 @@ import { User } from "../models/User.js";
 import "express-async-errors";
 import ErrorHandler from "../utils/errorHandler.js";
 import { sendToken } from "../utils/sendToken.js";
-// import { Persons } from "../models/Persons.js";
 
 export const register = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -114,14 +113,7 @@ export const forgetpassword = async (req, res, next) => {
   const resetToken = await user.getResetToken();
 
   await user.save();
-  // send token via email
-  // const url = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
-  // const message = `Click on link to resetpassword ${url}`;
-  // await sendEmail(user.email, "Password reset", message);
-  // res.status(200).json({
-  //   success: true,
-  //   message: `Reset token sent to ${user.email}`,
-  // });
+
   res.status(200).json({
     success: true,
     token_url: `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`,
