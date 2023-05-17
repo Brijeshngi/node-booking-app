@@ -20,29 +20,20 @@ const schema = new mongoose.Schema({
   },
   gallery: [
     {
-      title: { type: String, required: true },
-      description: { type: String, required: true },
+      title: { type: String },
+      description: { type: String },
       videos: {
-        public_id: { type: String, required: true },
-        url: { type: String, required: true },
+        public_id: { type: String },
+        url: { type: String },
       },
       images: {
-        public_id: { type: String, required: true },
-        url: { type: String, required: true },
+        public_id: { type: String },
+        url: { type: String },
       },
     },
   ],
   Amenities: {
     type: String,
-    required: true,
-  },
-  check_in: {
-    type: Date,
-    Date: Date.now(),
-  },
-  check_out: {
-    type: Date,
-    Date: Date.now(),
   },
   fares: {
     type: String,
@@ -60,19 +51,18 @@ const schema = new mongoose.Schema({
   reviews: [
     {
       user_name: mongoose.Schema.Types.ObjectId,
-      title: { type: String, required: true },
-      description: { type: String, required: true },
+      title: { type: String },
+      description: { type: String },
       videos: {
-        public_id: { type: String, required: true },
-        url: { type: String, required: true },
+        public_id: { type: String },
+        url: { type: String },
       },
       images: {
-        public_id: { type: String, required: true },
-        url: { type: String, required: true },
+        public_id: { type: String },
+        url: { type: String },
       },
       rating: {
         type: String,
-        required: true,
       },
     },
   ],

@@ -31,6 +31,9 @@ const schema = new mongoose.Schema({
     minlength: [10, "required 10 digits"],
     maxlength: [10, "required 10 digits"],
   },
+  message: {
+    type: String,
+  },
 });
 
 export const Plan_Request = mongoose.model("Plan_Request", schema);
