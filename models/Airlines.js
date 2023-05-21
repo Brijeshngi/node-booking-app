@@ -11,7 +11,6 @@ const schema = new mongoose.Schema({
   },
   timing: {
     type: Date,
-    required: true,
   },
   from: {
     type: mongoose.Schema.Types.ObjectId,
@@ -62,7 +61,10 @@ const schema = new mongoose.Schema({
       rating: {
         type: String,
       },
-      Date: Date.now(),
+      Date: {
+        type: Date,
+        Date: Date.now(),
+      },
     },
   ],
   createAt: {

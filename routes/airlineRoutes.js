@@ -5,14 +5,14 @@ import {
   editAirline,
   updateFlightStatus,
   findFlight,
-} from "../controllers/airlineController";
+} from "../controllers/airlineController.js";
 
 const router = express.Router();
 
 router.route("/airline").post(addAirline);
 router.route("/airline/:id").put(editAirline);
 router.route("/airline/status/:id").post(updateFlightStatus);
-route.route("/airline/review/:id").put(addReview);
-route.route("/airline/find").post(findFlight);
+router.route("/airline/review/:id").put(addReview);
+router.route("/airline/find").post(findFlight);
 
 export default router;

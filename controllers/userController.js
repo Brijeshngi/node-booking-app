@@ -162,6 +162,51 @@ export const deleteprofile = async (req, res, next) => {
   });
 };
 
+export const registerAsAdmin = async (req, res, next) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password)
+    return next(new ErrorHandler("please provide all details", 400));
+
+  const owner = await User.findOne({ email });
+
+  if (owner) return next(new ErrorHandler("Email already exist", 409));
+
+  await User.create({
+    name,
+    email,
+    password,
+    role: "admin",
+  });
+
+  res.status(201).json({
+    success: true,
+    message: `Registered as Admin`,
+  });
+};
+
+export const registerAsOwner = async (req, res, next) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password)
+    return next(new ErrorHandler("please provide all details", 400));
+  const owner = await User.findOne({ email });
+
+  if (owner) return next(new ErrorHandler("Email already exist", 409));
+
+  await User.create({
+    name,
+    email,
+    password,
+    role: "owner",
+  });
+
+  res.status(201).json({
+    success: true,
+    message: `Registered as Hall Owner`,
+  });
+};
+
 // for testing purpose
 // export const query = async (req, res, next) => {
 //   const user = await Persons.find({});

@@ -6,7 +6,6 @@ export const addAirline = async (req, res, next) => {
   const {
     airlines,
     flight_number,
-    timing,
     from,
     to,
     travelling_class,
@@ -17,7 +16,6 @@ export const addAirline = async (req, res, next) => {
   if (
     !airlines ||
     !flight_number ||
-    !timing ||
     !from ||
     !to ||
     !travelling_class ||
@@ -29,7 +27,6 @@ export const addAirline = async (req, res, next) => {
   const data = await Airlines.create({
     airlines,
     flight_number,
-    timing,
     from,
     to,
     travelling_class,
@@ -48,7 +45,7 @@ export const editAirline = async (req, res, next) => {
 
   const data = await Airlines.findById(id);
 
-  if (!data) return next(new ErrorHandler("no data found", 404));
+  if (!data) return next(new ErrorHandler("No data found", 404));
 
   const {
     airlines,
@@ -102,10 +99,11 @@ export const updateFlightStatus = async (req, res, next) => {
   if (!flight_status) return next(new ErrorHandler("please provide data", 400));
 
   data.flight_status = flight_status;
+  flight = data.flight_number;
 
   res.status(200).json({
     success: true,
-    message: `flight status updated`,
+    message: `flight ${flight} status updated`,
   });
 };
 
@@ -133,11 +131,12 @@ export const addReview = async (req, res, next) => {
 
 export const findFlight = async (req, res, next) => {
   const { from, to } = req.body;
+  console.log(from, to);
 
   const data = await Airlines.find({
-    $and: [{ from: `${from}`, to: `${from}` }],
+    $and: [{ from: `${from}`, to: `${to}` }],
   });
-
+  console.log(data);
   if (!data) return next(new ErrorHandler("no data found", 404));
 
   res.status(200).json({

@@ -4,7 +4,7 @@ import {
   addReview,
   editBus,
   updateStatus,
-} from "../controllers/busController";
+} from "../controllers/busController.js";
 
 const router = express.Router();
 

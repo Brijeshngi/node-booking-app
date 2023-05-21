@@ -4,7 +4,7 @@ import {
   addReview,
   editHomestay,
   findHomestay,
-} from "../controllers/homestayController";
+} from "../controllers/homestayController.js";
 
 const router = express.Router();
 
