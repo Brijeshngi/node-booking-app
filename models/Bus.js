@@ -41,15 +41,12 @@ const schema = new mongoose.Schema({
 
   occupancy: {
     type: String,
-    required: true,
   },
   occupied: {
     type: String,
-    required: true,
   },
   seats: {
     type: String,
-    required: true,
   },
   reviews: [
     {

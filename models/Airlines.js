@@ -49,20 +49,20 @@ const schema = new mongoose.Schema({
   reviews: [
     {
       user_name: mongoose.Schema.Types.ObjectId,
-      title: { type: String, required: true },
-      description: { type: String, required: true },
+      title: { type: String },
+      description: { type: String },
       videos: {
-        public_id: { type: String, required: true },
-        url: { type: String, required: true },
+        public_id: { type: String },
+        url: { type: String },
       },
       images: {
-        public_id: { type: String, required: true },
-        url: { type: String, required: true },
+        public_id: { type: String },
+        url: { type: String },
       },
       rating: {
         type: String,
-        required: true,
       },
+      Date: Date.now(),
     },
   ],
   createAt: {

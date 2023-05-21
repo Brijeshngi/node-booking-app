@@ -1,6 +1,8 @@
 import express from "express";
 import { config } from "dotenv";
-import cookies from "cookie-parser";
+import ErrorMiddleware from "./middleware/Error.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 config({
   path: "./config/config.env",
@@ -9,20 +11,22 @@ config({
 const app = express();
 
 // middleware
+app.use(cors());
 app.use(express.json());
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
+app.use(cookieParser());
 
 // importing and using routes
-app.use(cookieParser());
+
 import user from "./routes/userRoutes.js";
-import ErrorMiddleware from "./middleware/Error.js";
-import cookieParser from "cookie-parser";
+import payment from "./routes/paymentRoutes.js";
 
 app.use("/api/v1", user);
+app.use("/api/v1", payment);
 
 export default app;
 
