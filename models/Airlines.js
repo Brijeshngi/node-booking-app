@@ -42,14 +42,15 @@ const schema = new mongoose.Schema({
   occupied: {
     type: String,
   },
+  passengers: [{}],
   seat_detail: {
     type: String,
   },
   reviews: [
     {
       user_name: mongoose.Schema.Types.ObjectId,
-      title: { type: String },
-      description: { type: String },
+      title: String,
+      description: String,
       videos: {
         public_id: { type: String },
         url: { type: String },

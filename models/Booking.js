@@ -14,9 +14,6 @@ const schema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
     },
   ],
-  number_of_days: {
-    type: String,
-  },
   booked_on_date: {
     type: Date,
   },
