@@ -115,32 +115,68 @@ export const addReview = async (req, res, next) => {
   if (!data) return next(new ErrorHandler("no data found", 404));
 
   const { user_name, title, description, videos, images, rating } = req.body;
+  // console.log(title);
 
-  data.reviews.user_name = user_name;
-  data.reviews.title = title;
-  data.reviews.description = description;
-  data.reviews.videos = videos;
-  data.reviews.images = images;
-  data.reviews.rating = rating;
+  let userRating = Number(data.reviews.rating);
+
+  data.reviews.rating = userRating;
+
+  const alldata = data.reviews.push({
+    user_name,
+    title,
+    description,
+    videos,
+    images,
+    rating,
+  });
+
+  await data.save();
 
   res.status(200).json({
     success: true,
+    alldata,
     message: `review added`,
   });
 };
 
 export const findFlight = async (req, res, next) => {
   const { from, to } = req.body;
-  console.log(from, to);
 
   const data = await Airlines.find({
-    $and: [{ from: `${from}`, to: `${to}` }],
+    $and: [{ from: `${from}` }, { to: `${to}` }],
   });
-  console.log(data);
+
+  // const data = await Airlines.findOne({ from: `${from}` }, { to: `${to}` });
+
   if (!data) return next(new ErrorHandler("no data found", 404));
 
   res.status(200).json({
     success: true,
     data,
+  });
+};
+
+// findflight must be greater than current date
+//push passenger data API
+// find occupancy and compare with occupied then allow to book API
+
+export const addPassengerToFlight = async (req, res, next) => {
+  const { id } = req.params;
+
+  const data = await Airlines.findById(id);
+
+  if (!data) return next(new ErrorHandler("No Data found", 404));
+
+  let occupied = Number(data.occupied);
+
+  if (occupied >= 10) return next(new ErrorHandler("Not allowed", 400));
+
+  data.occupied = occupied + 1;
+
+  await data.save();
+
+  res.status(200).json({
+    success: true,
+    message: `Passenger added to flight ${data.flight_number}`,
   });
 };
